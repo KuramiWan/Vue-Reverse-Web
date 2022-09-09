@@ -1,0 +1,292 @@
+<template>
+  <div class="wrapper">
+    <parallax
+      class="section page-header header-filter"
+      :style="headerStyle"
+    ></parallax>
+    <div class="main main-raised">
+      <div class="section profile-content">
+        <div class="container">
+          <div class="md-layout">
+            <div class="md-layout-item md-size-50 mx-auto">
+              <div class="profile"></div>
+            </div>
+          </div>
+          <div class="description text-center"></div>
+          <div class="mainAchieve">
+            <div class="md-layout md-gutter md-alignment-center">
+              <div
+                class="md-layout-item md-large-size-30 md-medium-size-33  md-xsmall-size-100 sideBar"
+              >
+                <div class="color"></div>
+              </div>
+              <div
+                class="md-layout-item md-large-size-70 md-medium-size-66  md-xsmall-size-100 mainBar"
+              >
+                <timeline
+                  v-for="(paginatedBlock, index) in paginatedBlocks"
+                  :key="index"
+                >
+                  <router-link :to="'/detail/' + paginatedBlock.id">
+                    <timeline-title></timeline-title>
+                    <timeline-item
+                      icon-size="mudium"
+                      bg-color="#9dd8e0"
+                      @click="goDetail"
+                    >
+                      <div>
+                        <p>ID: {{ paginatedBlock.id }}</p>
+                        <h4>标题: {{ paginatedBlock.title }}</h4>
+                        <p>
+                          <ins>状态: {{ paginatedBlocks.status }}</ins>
+                        </p>
+                        <p>
+                          <small>问题: {{ paginatedBlock.question }}</small>
+                        </p>
+                        <p>
+                          <small>时间: {{ paginatedBlock.createTime }}</small>
+                        </p>
+                      </div>
+                    </timeline-item>
+                  </router-link>
+                  <timeline-item :hollow="true"></timeline-item>
+                </timeline>
+              </div>
+            </div>
+            <md-field class="md-form-group-outline" slot="inputs">
+              <md-icon>lock_outline</md-icon>
+              <label>查找你的问题</label>
+              <md-input v-model="question"></md-input>
+            </md-field>
+
+            <pagination
+              v-model="pagination.page"
+              :pageCount="pageCountComputed"
+              :perPage="pagination.perPage"
+              @input="input"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import "vue-cute-timeline/dist/index.css";
+import Pagination from "../components/Pagination.vue";
+import axios from "axios";
+import { Timeline, TimelineItem, TimelineTitle } from "vue-cute-timeline";
+
+export default {
+  bodyClass: "archives-page",
+  data() {
+    return {
+      timeBlocks: [],
+      paginatedBlocks: [],
+      FilterBlocks: [],
+      selectedQuestion: null,
+      question: [],
+      pagination: {
+        perPage: 5,
+        page: 1
+      }
+    };
+  },
+  components: {
+    Timeline,
+    TimelineItem,
+    TimelineTitle,
+    Pagination
+  },
+  props: {
+    header: {
+      type: String,
+      default: require("@/assets/img/city-profile.jpg")
+    },
+    img: {
+      type: String,
+      default: require("@/assets/img/faces/christian.jpg")
+    }
+  },
+  methods: {
+    getArchives() {
+      axios
+        .post("/archives")
+        .then(response => {
+          var blocks = response.data;
+          const statusMap = {
+            undone: "未完成",
+            processing: "进行中",
+            completed: "已完成",
+            cancel: "取消"
+          };
+          blocks.forEach(block => {
+            block.createTime = new Date(Number(block.createTime)).toString(
+              undefined
+            );
+
+            Object.keys(statusMap).forEach(obj => {
+              if (block.status == obj) {
+                block.status = statusMap[obj];
+              }
+            });
+          });
+          this.timeBlocks = blocks;
+
+          this.input(1);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    goDetail() {
+      this.$router.push("/detail/:id");
+    },
+    // filterRerender() {
+    //   var year = this.timeFilter.year;
+    //   var month = this.timeFilter.month;
+    //   var day = this.timeFilter.day;
+    //   var filterBlocks = [];
+    //   this.timeBlocks.forEach(block => {
+    //     var createdTime = new Date(block.createTime);
+    //     if (
+    //       year == createdTime.getFullYear() ||
+    //       month == createdTime.getMonth() ||
+    //       day == createdTime.getDay()
+    //     ) {
+    //       filterBlocks.push(block);
+    //     }
+    //   });
+    //   this.filterBlocks = filterBlocks;
+    //   this.filter();
+    //   this.input(1);
+    // },
+    // filter() {
+    //   var blocks = [];
+    //   if (
+    //     this.timeFilter.year ||
+    //     this.timeFilter.month ||
+    //     this.timeFilter.day
+    //   ) {
+    //     blocks = this.filterBlocks;
+    //   } else {
+    //     blocks = this.timeBlocks;
+    //   }
+    //   var year = [];
+    //   var month = [];
+    //   var day = [];
+    //   blocks.forEach(block => {
+    //     var createdTime = new Date(block.createTime);
+    //     year.push(createdTime.getFullYear());
+    //     month.push(createdTime.getMonth());
+    //     day.push(createdTime.getDay());
+    //   });
+    //   year = new Set(year);
+    //   month = new Set(month);
+    //   day = new Set(day);
+    //   this.selectOption.selectYear = year;
+    //   this.selectOption.selectMonth = month;
+    //   this.selectOption.selectDay = day;
+    // },
+    input(currentPage) {
+      var perPage = this.pagination.perPage;
+      var startItem = (currentPage - 1) * perPage;
+      var blocks = [];
+      var endItem = currentPage * perPage - 1;
+
+      blocks = this.timeBlocks;
+
+      this.paginatedBlocks = blocks.slice(startItem, endItem);
+    }
+  },
+
+  created() {
+    this.getArchives();
+    // axios
+    //   .post("/archives")
+    //   .then(response => {
+    //     var blocks = response.data;
+
+    //     const statusMap = {
+    //       undone: "未完成",
+    //       processing: "进行中",
+    //       completed: "已完成",
+    //       cancel: "取消"
+    //     };
+    //     blocks.forEach(block => {
+    //       block.createTime = new Date(
+    //         Number(block.createTime)
+    //       ).toLocaleDateString(undefined);
+
+    //       Object.keys(statusMap).forEach(obj => {
+    //         if (block.status == obj) {
+    //           block.status = statusMap[obj];
+    //         }
+    //       });
+    //     });
+
+    //     this.timeBlocks = blocks;
+    //   })
+    //   .catch(function(error) {});
+  },
+  mounted() {},
+  computed: {
+    headerStyle() {
+      return {
+        backgroundImage: `url(${this.header})`
+      };
+    },
+    pageCountComputed() {
+      var blocks = [];
+
+      blocks = this.timeBlocks;
+
+      return Math.ceil((blocks.length + 1) / this.pagination.perPage);
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.sideBar {
+  height: 40px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.mainBar {
+  height: 40px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.color {
+  width: 100%;
+  height: 100%;
+  background-color: purple;
+}
+.section {
+  padding: 0;
+}
+.mousehover {
+  background-color: #e0e0e0;
+  box-shadow: #bdbdbd;
+}
+
+.pagination {
+  justify-content: center;
+}
+.profile-tabs::v-deep {
+  .md-card-tabs .md-list {
+    justify-content: center;
+  }
+
+  [class*="tab-pane-"] {
+    margin-top: 3.213rem;
+    padding-bottom: 50px;
+
+    img {
+      margin-bottom: 2.142rem;
+    }
+  }
+}
+</style>

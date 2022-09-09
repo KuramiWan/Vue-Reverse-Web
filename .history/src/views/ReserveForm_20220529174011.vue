@@ -1,0 +1,13 @@
+<template>
+  <md-field>
+    <label>value</label>
+    <md-input v-model="tag"></md-input>
+  </md-field>
+</template>
+<script>
+export default {
+  
+};
+</script>
+
+<style></style>

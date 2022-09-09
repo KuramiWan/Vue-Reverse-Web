@@ -1,0 +1,32 @@
+<template>
+  <div>
+
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {};
+  },
+  props: {
+    statusBlocks: {
+      type: Array,
+      default: () => {}
+    }
+  },
+  created() {}
+};
+</script>
+
+<style>
+.kanban-column {
+  margin: 10px;
+}
+.kanban-item {
+  padding: 20px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+</style>

@@ -1,0 +1,25 @@
+.mate-label{
+  padding-right: 4px;
+  
+}
+
+.fontOverHide {
+white-space: nowrap;
+overflow: hidden; /*超出的文本隐藏*/
+text-overflow: ellipsis; /* 溢出用省略号*/
+}
+.sideCard {
+  height: auto;
+  width: 100%;
+  border-radius: 5px;
+  padding: 25px;
+}
+.articleCard{
+  height: 150px;
+  width: 100%;
+  border-radius: 5px;
+  padding: 25px;
+}
+.line{
+  padding-top: 5px;
+}
