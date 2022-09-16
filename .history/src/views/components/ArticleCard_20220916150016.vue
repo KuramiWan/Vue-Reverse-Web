@@ -1,0 +1,36 @@
+<template>
+  <div class=" md-elevation-3">
+<div class="">
+      <div v-for="(block,index) in searchResult" :key="index">
+        <router-link :to="'/detail/' + block.id">
+          <div>
+            <div class="md-title fontOverHide line">{{block.title}}</div>
+            <div class="md-caption line">
+              <span class="mate-label">发表于</span>
+              <span>{{block.createTime}}</span>|
+              <span class="mate-label">文章序列号</span>
+              <span>{{block.id}}</span>|
+              <span class="mate-label">{{block.category}}</span>
+            </div>
+            <div class="md-body2 fontOverHide line"><span class="mate-label">Q:</span>{{block.question}}</div>
+            <div class="md-body fontOverHide line"><span class="mate-label">A:</span>{{block.answer}}</div>
+          </div>
+        </router-link>
+      </div>
+</div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {}
+  },
+  props: {
+    searchResult: Array,
+  },
+}
+</script>
+
+<style>
+</style>

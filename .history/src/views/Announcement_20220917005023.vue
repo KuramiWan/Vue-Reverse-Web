@@ -1,0 +1,147 @@
+<template>
+  <div class="wrapper">
+    <parallax
+      class="section page-header header-filter"
+      :style="headerStyle"
+    ></parallax>
+    <div class="main main-raised">
+      <div class="section profile-content">
+        <div class="container">
+          <div class="md-layout">
+            <div class="md-layout-item md-size-50 mx-auto">
+              <div class="profile"></div>
+            </div>
+          </div>
+          <div class="description text-center"></div>
+          <div class="mainAchieve">
+            <div class="md-layout">
+              <div
+                class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto text-center "
+              >
+                <div>
+                  <md-tooltip md-delay="1000" md-direction="top">
+                    <div>
+                      <md-button
+                        class="md-icon-button md-primary button"
+                        @click="isEdit"
+                      >
+                        <md-icon>edit</md-icon>
+                      </md-button>
+                      <md-button
+                        class="md-icon-button md-primary button"
+                        @click="update"
+                      >
+                        <md-icon>confirm</md-icon>
+                      </md-button>
+                    </div>
+                  </md-tooltip>
+                  <div v-html="markdownToHtml"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import hljs from "highlight.js";
+import VMdEditor from "@kangc/v-md-editor";
+import "@kangc/v-md-editor/lib/style/base-editor.css";
+import githubTheme from "@kangc/v-md-editor/lib/theme/github.js";
+import "@kangc/v-md-editor/lib/theme/style/github.css";
+import { marked } from "marked";
+import notification from "../util/Notification";
+VMdEditor.use(githubTheme, {
+  Hljs: hljs
+});
+export default {
+  bodyClass: "archives-page",
+  data() {
+    return {
+      editKey: false,
+      announcementDetail: {},
+      markdown: "# Marked in Node.js\n\nRendered by **marked**."
+    };
+  },
+  components: {},
+
+  props: {
+    header: {
+      type: String,
+      default: require("@/assets/img/city-profile.jpg")
+    },
+    img: {
+      type: String,
+      default: require("@/assets/img/faces/christian.jpg")
+    }
+  },
+  methods: {
+    isEdit() {
+      this.isEdit = !this.isEdit;
+    },
+    update() {
+      notification
+        .post("/admin/announcement/update", this.announcementDetail, {
+          headers: {
+            Authorization: localStorage.get("Authorization")
+          }
+        })
+        .then(response => {})
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  },
+
+  created() {
+    notification({
+      method: "get",
+      url: "/announcement/" + this.$route.params.ancId //announcement Id --ancId
+    })
+      .then(response => {
+        this.announcementDetail = response.data.data;
+        this.markdown = response.data.data.markdown;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
+  computed: {
+    markdownToHtml() {
+      return marked.parse(this.markdown);
+    },
+    headerStyle() {
+      return {
+        backgroundImage: `url(${this.header})`
+      };
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.section {
+  padding: 0;
+}
+
+.pagination {
+  justify-content: center;
+}
+.profile-tabs::v-deep {
+  .md-card-tabs .md-list {
+    justify-content: center;
+  }
+
+  [class*="tab-pane-"] {
+    margin-top: 3.213rem;
+    padding-bottom: 50px;
+
+    img {
+      margin-bottom: 2.142rem;
+    }
+  }
+}
+</style>

@@ -1,0 +1,76 @@
+<template>
+  
+
+
+</login-card>
+            <login-card v-if="!LoR" header-color="green">
+              <h4 slot="title" class="card-title">注册</h4>
+              <!-- <md-button
+                slot="buttons"
+                href="javascript:void(0)"
+                class="md-just-icon md-simple md-white"
+              >
+                <i class="fab fa-facebook-square"></i>
+              </md-button>
+              <md-button
+                slot="buttons"
+                href="javascript:void(0)"
+                class="md-just-icon md-simple md-white"
+              >
+                <i class="fab fa-twitter"></i>
+              </md-button>
+              <md-button
+                slot="buttons"
+                href="javascript:void(0)"
+                class="md-just-icon md-simple md-white"
+              >
+                <i class="fab fa-google-plus-g"></i>
+              </md-button> -->
+              <!-- <p slot="description" class="description">Or Be Classical</p> -->
+              <md-field class="md-form-group" slot="inputs">
+                <md-icon>face</md-icon>
+                <label>用户名...</label>
+                <md-input v-model="userName"></md-input>
+              </md-field>
+              <md-field class="md-form-group" slot="inputs">
+                <md-icon>email</md-icon>
+                <label>邮箱...</label>
+                <md-input v-model="email" type="email"></md-input>
+              </md-field>
+              <md-field class="md-form-group" slot="inputs">
+                <md-icon>lock_outline</md-icon>
+                <label>确认密码...</label>
+                <md-input v-model="password"></md-input>
+              </md-field>
+              <md-field class="md-form-group" slot="inputs">
+                <md-icon>lock_outline</md-icon>
+                <label>密码...</label>
+                <md-input v-model="password"></md-input>
+              </md-field>
+              <md-field class="md-form-group" slot="inputs">
+                <md-icon class="material-icons">
+                  keyboard_double_arrow_right
+                </md-icon>
+                <label>验证...</label>
+                <md-input v-model="captcha"></md-input>
+              </md-field>
+
+              <md-button
+                slot="footer"
+                class="md-simple md-success md-lg"
+                @click="login"
+              >
+                Lets Go
+              </md-button>
+            </login-card>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>
