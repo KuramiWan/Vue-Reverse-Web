@@ -1,0 +1,38 @@
+<template>
+  <div></div>
+</template>
+
+<script>
+import axios from "axios";
+
+async function globe() {
+  var userName = "";
+  var userId = 0;
+  var permissions = "";
+  var adminShow = false;
+  if (!userId) {
+    axios
+      .post("/user/info")
+      .then(response => {
+        var data = response.data.data;
+        userId = data.userId;
+        permissions = data.permissions;
+        userName = data.userName;
+        if (permissions > 1) {
+          adminShow = true;
+        }
+        console.log(userId, permissions, userName, adminShow);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  return { userName, userId, permissions, adminShow };
+}
+console.log(globe);
+export default {
+  globe
+};
+</script>
+
+<style></style>
