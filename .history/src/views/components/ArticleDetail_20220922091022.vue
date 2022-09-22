@@ -14,11 +14,12 @@
         <label>标题</label>
         <md-input v-model="detail.title"></md-input>
       </md-field>
-      <div class="top-line md-caption tag">
+      <div class="top-line md-caption">
         <span class="mate-label ">更新于</span>{{ detail.createTime }}
       </div>
       <div class="top-line md-caption ">
-        <span class="mate-label  ">标签:</span><span>{{ detail.tag }}</span>
+        <span class="mate-label  ">标签:</span
+        ><span class="tag">{{ detail.tag }}</span>
       </div>
       <md-field v-if="EditKey">
         <label>标签:</label>
@@ -132,7 +133,6 @@ export default {
     }
   },
   created() {
-    this.detail.answer = "# Marked in Node.js\n\nRendered by **marked**.";
     this.images = this.detail.image;
     this.isAdmin();
   },
@@ -170,7 +170,7 @@ export default {
   margin: 20px;
 }
 .tag {
-  width: 155px;
+  width: 95px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

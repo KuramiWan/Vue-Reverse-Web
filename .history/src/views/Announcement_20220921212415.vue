@@ -19,7 +19,7 @@
                 class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto text-center "
               >
                 <div>
-                  <div v-if="adminShow">
+                  <!-- <div v-if="adminShow">
                     <md-button
                       class="md-icon-button md-primary button"
                       @click="isEdit"
@@ -32,7 +32,7 @@
                     >
                       <md-icon>done</md-icon>
                     </md-button>
-                  </div>
+                  </div> -->
 
                   <v-md-editor
                     v-if="EditKey"
@@ -67,7 +67,7 @@ export default {
   bodyClass: "archives-page",
   data() {
     return {
-      adminShow: false,
+      // adminShow: false,
       EditKey: false,
       announcementDetail: {},
       markdown: "# Marked in Node.js\n\nRendered by **marked**."
@@ -86,32 +86,23 @@ export default {
     }
   },
   methods: {
-    isAdmin() {
-      var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      if (userInfo.permissions > 1) {
-        this.adminShow = true;
-        return;
-      }
-      this.adminShow = false;
-    },
-    isEdit() {
-      this.EditKey = !this.EditKey;
-    },
-    update() {
-      notification
-        .post("/admin/announcement/update", this.announcementDetail, {
-          headers: {
-            Authorization: localStorage.getItem("Authorization")
-          }
-        })
-        .then(response => {})
-        .catch(error => {
-          console.log(error);
-        });
-    }
-  },
+
+  //   update() {
+  //     notification
+  //       .post("/admin/announcement/update", this.announcementDetail, {
+  //         headers: {
+  //           Authorization: localStorage.getItem("Authorization")
+  //         }
+  //       })
+  //       .then(response => {})
+  //       .catch(error => {
+  //         console.log(error);
+  //       });
+  //   }
+  // },
 
   created() {
+    this.isAdmin();
     notification({
       method: "get",
       url: "/announcement/" + this.$route.params.ancId //announcement Id --ancId
@@ -123,7 +114,6 @@ export default {
       .catch(error => {
         console.log(error);
       });
-    this.isAdmin();
   },
   computed: {
     markdownToHtml() {

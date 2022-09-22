@@ -132,7 +132,6 @@ export default {
     }
   },
   created() {
-    this.detail.answer = "# Marked in Node.js\n\nRendered by **marked**.";
     this.images = this.detail.image;
     this.isAdmin();
   },

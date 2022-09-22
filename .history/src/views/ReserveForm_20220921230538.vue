@@ -47,7 +47,7 @@
                     <md-option
                       v-for="time in timesOption"
                       :key="time"
-                      :value="time"
+                      value="time"
                       class="md-simple "
                     >
                       {{ time }}</md-option
@@ -109,7 +109,7 @@ export default {
       url: "https://easyimg.kurami.ga/application/upload.php",
       phoneNumber: null,
       timesOption: null,
-
+      time: null,
       college: null,
       username: null,
       question: null,
@@ -156,8 +156,9 @@ export default {
       notification
         .post("/form", {
           name: this.username,
-          college: this.college,
+          collage: this.college,
           phoneNumber: this.phoneNumber,
+          time: this.time,
           reserveTime: this.reserveTime,
           question: this.question,
           image: this.image

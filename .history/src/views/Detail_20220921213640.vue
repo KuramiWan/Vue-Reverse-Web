@@ -10,7 +10,7 @@
           <div
             class="md-layout-item md-size-50 md-small-size-70 md-xsmall-size-100"
           >
-            <h1 class="title">记录归档</h1>
+            <h1 class="title">完成记录</h1>
           </div>
         </div>
       </div></parallax

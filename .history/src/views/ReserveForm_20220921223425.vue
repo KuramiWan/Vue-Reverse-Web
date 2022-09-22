@@ -43,11 +43,11 @@
                 <md-field class="md-form-group">
                   <md-icon>schedule</md-icon>
                   <label>预约时间</label>
-                  <md-select v-model="reserveTime">
+                  <md-select v-model="time">
                     <md-option
                       v-for="time in timesOption"
                       :key="time"
-                      :value="time"
+                      value="time"
                       class="md-simple "
                     >
                       {{ time }}</md-option
@@ -70,10 +70,11 @@
                     is="upload-image"
                     :url="url"
                     :max_files="5"
+               
                     name="file"
                     :button_class="'md-button md-primary'"
                     button_html="上传图片"
-                    v-on:upload-image-success="onFileSelected"
+                    v-on:upload-image-submit="onFileSelected"
                   >
                   </upload-image>
                 </div>
@@ -104,12 +105,11 @@ export default {
   bodyClass: "profile-page",
   data() {
     return {
-      reserveTime: null,
       selectedFile: null,
       url: "https://easyimg.kurami.ga/application/upload.php",
       phoneNumber: null,
       timesOption: null,
-
+      time: null,
       college: null,
       username: null,
       question: null,
@@ -148,17 +148,29 @@ export default {
   },
   methods: {
     onFileSelected(event) {
-      console.log(event);
-      let data = event[1].data;
-      this.image.push(data.url);
+      this.selectedFile = event.target.files[0];
+      const fd = new FormData();
+      fd.append("file", this.selectedFile);
+      notification
+        .post("https://easyimg.kurami.ga/application/upload.php", fd, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(response => {
+          this.image.push(response.data.url);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     formInput() {
       notification
         .post("/form", {
           name: this.username,
-          college: this.college,
+          collage: this.college,
           phoneNumber: this.phoneNumber,
-          reserveTime: this.reserveTime,
+          time: this.time,
           question: this.question,
           image: this.image
         })

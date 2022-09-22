@@ -112,6 +112,7 @@ export default {
   },
 
   created() {
+    this.isAdmin();
     notification({
       method: "get",
       url: "/announcement/" + this.$route.params.ancId //announcement Id --ancId
@@ -123,7 +124,6 @@ export default {
       .catch(error => {
         console.log(error);
       });
-    this.isAdmin();
   },
   computed: {
     markdownToHtml() {

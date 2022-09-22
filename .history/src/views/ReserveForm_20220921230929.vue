@@ -158,6 +158,7 @@ export default {
           name: this.username,
           college: this.college,
           phoneNumber: this.phoneNumber,
+
           reserveTime: this.reserveTime,
           question: this.question,
           image: this.image

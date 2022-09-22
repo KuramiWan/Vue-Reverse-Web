@@ -275,7 +275,7 @@ export default {
     confirm() {
       if (this.select.edit) {
         notification
-          .post("/admin/form/updateList", this.selected, {
+          .post("/admin/form/update", this.selected, {
             headers: {
               Authorization: localStorage.getItem("Authorization")
             }

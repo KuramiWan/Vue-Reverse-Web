@@ -109,7 +109,7 @@ export default {
       url: "https://easyimg.kurami.ga/application/upload.php",
       phoneNumber: null,
       timesOption: null,
-
+ 
       college: null,
       username: null,
       question: null,
@@ -156,8 +156,9 @@ export default {
       notification
         .post("/form", {
           name: this.username,
-          college: this.college,
+          collage: this.college,
           phoneNumber: this.phoneNumber,
+          
           reserveTime: this.reserveTime,
           question: this.question,
           image: this.image

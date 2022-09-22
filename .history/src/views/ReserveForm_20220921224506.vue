@@ -43,11 +43,11 @@
                 <md-field class="md-form-group">
                   <md-icon>schedule</md-icon>
                   <label>预约时间</label>
-                  <md-select v-model="reserveTime">
+                  <md-select v-model="time">
                     <md-option
                       v-for="time in timesOption"
                       :key="time"
-                      :value="time"
+                      value="time"
                       class="md-simple "
                     >
                       {{ time }}</md-option
@@ -104,12 +104,11 @@ export default {
   bodyClass: "profile-page",
   data() {
     return {
-      reserveTime: null,
       selectedFile: null,
       url: "https://easyimg.kurami.ga/application/upload.php",
       phoneNumber: null,
       timesOption: null,
-
+      time: null,
       college: null,
       username: null,
       question: null,
@@ -149,16 +148,16 @@ export default {
   methods: {
     onFileSelected(event) {
       console.log(event);
-      let data = event[1].data;
-      this.image.push(data.url);
+      let data = event[1].data
+      // this.image.push(.data.url);
     },
     formInput() {
       notification
         .post("/form", {
           name: this.username,
-          college: this.college,
+          collage: this.college,
           phoneNumber: this.phoneNumber,
-          reserveTime: this.reserveTime,
+          time: this.time,
           question: this.question,
           image: this.image
         })

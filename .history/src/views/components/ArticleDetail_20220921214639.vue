@@ -14,16 +14,12 @@
         <label>标题</label>
         <md-input v-model="detail.title"></md-input>
       </md-field>
-      <div class="top-line md-caption tag">
+      <div class="top-line md-caption">
         <span class="mate-label ">更新于</span>{{ detail.createTime }}
       </div>
-      <div class="top-line md-caption ">
-        <span class="mate-label  ">标签:</span><span>{{ detail.tag }}</span>
+      <div class="top-line md-caption">
+        <span class="mate-label ">标签:</span>{{ detail.tag }}
       </div>
-      <md-field v-if="EditKey">
-        <label>标签:</label>
-        <md-input v-model="detail.tag"></md-input>
-      </md-field>
       <p class="line ">
         <span class="md-body-2 mate-label">Q:</span>
         <span class="md-body-1">{{ detail.question }}</span>
@@ -132,7 +128,6 @@ export default {
     }
   },
   created() {
-    this.detail.answer = "# Marked in Node.js\n\nRendered by **marked**.";
     this.images = this.detail.image;
     this.isAdmin();
   },
@@ -141,7 +136,7 @@ export default {
     markDownToHTML() {
       var markdown = this.detail.answer;
       if (markdown == null) {
-        markdown = "# Marked in Node.js\n\nRendered by **marked**.";
+        markdown = ''
       }
       return marked(markdown);
     }
@@ -168,11 +163,5 @@ export default {
 }
 .button {
   margin: 20px;
-}
-.tag {
-  width: 155px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 </style>

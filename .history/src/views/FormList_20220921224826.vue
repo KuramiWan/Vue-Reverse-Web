@@ -4,6 +4,7 @@
       <div class="container">
         <div class="md-layout ">
           <div
+       
             class="md-layout-item md-size-66 md-xsmall-size-100 mx-anto text-center animateFadeInUp"
           ></div>
 
@@ -275,7 +276,7 @@ export default {
     confirm() {
       if (this.select.edit) {
         notification
-          .post("/admin/form/updateList", this.selected, {
+          .post("/admin/form/update", this.selected, {
             headers: {
               Authorization: localStorage.getItem("Authorization")
             }
