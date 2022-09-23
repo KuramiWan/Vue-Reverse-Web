@@ -52,7 +52,7 @@
       <p class="line "><span class="md-body-2 mate-label">A:</span></p>
       <v-md-editor
         v-if="EditKey"
-        v-model="detail.answer"
+        v-model="editorMarkdown"
         height="400px"
       ></v-md-editor>
       <div v-html="markDownToHTML"></div>
@@ -108,10 +108,15 @@ export default {
     isEdit() {
       this.EditKey = !this.EditKey;
     },
-
+    editorMarkdown() {
+      if (!this.detail.answer) {
+        this.detail.answer = "# Marked in Node.js\n\nRendered by **marked**.";
+      }
+      return this.detail.answer;
+    },
     uploadMarkdown() {
       notification
-        .post("/admin/detail/update", this.detail, {
+        .post("./admin/detail/update", this.detail, {
           headers: {
             Authorization: localStorage.getItem("Authorization")
           }
@@ -139,7 +144,7 @@ export default {
   components: {},
   mounted() {},
   computed: {
-    markDownToHTML() {
+    markDownToHTML(answer) {
       var markdown = this.detail.answer;
       if (markdown == null) {
         markdown = "# Marked in Node.js\n\nRendered by **marked**.";

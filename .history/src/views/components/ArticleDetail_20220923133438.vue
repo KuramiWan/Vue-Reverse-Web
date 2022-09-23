@@ -108,10 +108,15 @@ export default {
     isEdit() {
       this.EditKey = !this.EditKey;
     },
-
+    editorMarkdown() {
+      if (!this.detail.answer) {
+        this.detail.answer = "# Marked in Node.js\n\nRendered by **marked**.";
+      }
+      return this.detail.answer;
+    },
     uploadMarkdown() {
       notification
-        .post("/admin/detail/update", this.detail, {
+        .post("./admin/detail/update", this.detail, {
           headers: {
             Authorization: localStorage.getItem("Authorization")
           }
@@ -133,13 +138,14 @@ export default {
     }
   },
   created() {
+    this.editorMarkdown();
     this.images = this.detail.image;
     this.isAdmin();
   },
   components: {},
   mounted() {},
   computed: {
-    markDownToHTML() {
+    markDownToHTML(answer) {
       var markdown = this.detail.answer;
       if (markdown == null) {
         markdown = "# Marked in Node.js\n\nRendered by **marked**.";

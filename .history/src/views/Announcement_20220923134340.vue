@@ -47,7 +47,7 @@
 
                   <v-md-editor
                     v-if="EditKey"
-                    v-model="markdown"
+                    :v-model="editorMarkDown()"
                     height="400px"
                   ></v-md-editor>
                   <div v-html="markdownToHtml"></div>
@@ -97,6 +97,9 @@ export default {
     }
   },
   methods: {
+    editorMarkDown() {
+      return "### 123";
+    },
     isAdmin() {
       var userInfo = JSON.parse(localStorage.getItem("userInfo"));
       if (userInfo.permissions > 1) {

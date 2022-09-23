@@ -108,10 +108,9 @@ export default {
     isEdit() {
       this.EditKey = !this.EditKey;
     },
-
     uploadMarkdown() {
       notification
-        .post("/admin/detail/update", this.detail, {
+        .post("./admin/detail/update", this.detail, {
           headers: {
             Authorization: localStorage.getItem("Authorization")
           }
@@ -133,17 +132,22 @@ export default {
     }
   },
   created() {
+    if (this.detail.answer == null) {
+      this.detail.answer = "# Marked in Node.js\n\nRendered by **marked**.";
+    }
+
     this.images = this.detail.image;
     this.isAdmin();
   },
+  mounted() {
+    var markdown = this.detail.answer;
+    if (markdown == null) {
+      markdown = "# Marked in Node.js\n\nRendered by **marked**.";
+    }
+  },
   components: {},
-  mounted() {},
   computed: {
     markDownToHTML() {
-      var markdown = this.detail.answer;
-      if (markdown == null) {
-        markdown = "# Marked in Node.js\n\nRendered by **marked**.";
-      }
       return marked(markdown);
     }
   }

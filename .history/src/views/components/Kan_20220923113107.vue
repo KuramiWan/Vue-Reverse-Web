@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     isAdmin() {
-     
+      console.log(this.statusBlocks);
       var userInfo = JSON.parse(localStorage.getItem("userInfo"));
       if (userInfo.permissions > 1) {
         this.adminShow = true;
@@ -106,7 +106,6 @@ export default {
       //   updateBlocks.concat(blocks.kanbanVoList);
       // });
       // console.log(blocks);
-     
       notification
         .post("admin/kanban/update", this.statusBlocks, {
           headers: {

@@ -24,7 +24,7 @@
     </div>
     <div class=" md-layout md-gutter md-alignment-top">
       <div
-        class="kanban-column md-elevation-3 md-layout-item md-large-size-24 md-medium-size-25 md-small-size-100 md-xsmall-size-100"
+        class="kanban-column md-elevation-3 md-layout-item md-large-size-25 md-medium-size-50 md-small-size-100 md-xsmall-size-100"
         v-for="(blocks, index) in statusBlocks"
         :key="index"
       >
@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     isAdmin() {
-     
+      console.log(statusBlocks);
       var userInfo = JSON.parse(localStorage.getItem("userInfo"));
       if (userInfo.permissions > 1) {
         this.adminShow = true;
@@ -106,7 +106,6 @@ export default {
       //   updateBlocks.concat(blocks.kanbanVoList);
       // });
       // console.log(blocks);
-     
       notification
         .post("admin/kanban/update", this.statusBlocks, {
           headers: {

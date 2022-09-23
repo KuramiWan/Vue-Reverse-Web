@@ -57,7 +57,7 @@
                 </div>
               </div>
               <div
-                class="md-layout-item md-large-size-70 md-medium-size-50  md-xsmall-size-100 mainBar"
+                class="md-layout-item md-large-size-70 md-medium-size-66  md-xsmall-size-100 mainBar"
               >
                 <md-field class="md-form-group-outline" slot="inputs">
                   <md-icon>search</md-icon>

@@ -310,7 +310,7 @@
 
 <script>
 import axios, { Axios } from "axios";
-import { notification, userInfoAxios } from "../util/Notification";
+import { userInfoAxios } from "../util/Notification";
 
 export default {
   bodyClass: "landing-page",
@@ -407,7 +407,7 @@ export default {
       return false;
     },
     submitMessage: function() {
-      notification
+      axios
         .post("/contact", {
           contactName: this.name,
           contactMessage: this.message,

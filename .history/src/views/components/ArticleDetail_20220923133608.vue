@@ -111,7 +111,7 @@ export default {
 
     uploadMarkdown() {
       notification
-        .post("/admin/detail/update", this.detail, {
+        .post("./admin/detail/update", this.detail, {
           headers: {
             Authorization: localStorage.getItem("Authorization")
           }
@@ -133,6 +133,7 @@ export default {
     }
   },
   created() {
+
     this.images = this.detail.image;
     this.isAdmin();
   },

@@ -25,9 +25,9 @@
           </div>
           <div class="description text-center"></div>
           <div class="mainAchieve">
-            <div class="md-layout md-gutter md-alignment-top">
+            <div class="md-layout md-gutter md-alignment-center">
               <div
-                class="md-layout-item md-large-size-30 md-medium-size-50  md-xsmall-size-100 sideBar"
+                class="md-layout-item md-large-size-30 md-medium-size-33  md-xsmall-size-100 sideBar"
               >
                 <div class="md-elevation-3 newArticle sideCard">
                   <div class="md-title">最新文章</div>
@@ -57,7 +57,7 @@
                 </div>
               </div>
               <div
-                class="md-layout-item md-large-size-70 md-medium-size-50  md-xsmall-size-100 mainBar"
+                class="md-layout-item md-large-size-70 md-medium-size-66  md-xsmall-size-100 mainBar"
               >
                 <md-field class="md-form-group-outline" slot="inputs">
                   <md-icon>search</md-icon>

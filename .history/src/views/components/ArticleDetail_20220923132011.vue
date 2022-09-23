@@ -108,10 +108,9 @@ export default {
     isEdit() {
       this.EditKey = !this.EditKey;
     },
-
     uploadMarkdown() {
       notification
-        .post("/admin/detail/update", this.detail, {
+        .post("./admin/detail/update", this.detail, {
           headers: {
             Authorization: localStorage.getItem("Authorization")
           }
@@ -137,7 +136,11 @@ export default {
     this.isAdmin();
   },
   components: {},
-  mounted() {},
+  mounted() {
+    if (this.detail.answer == null) {
+      this.detail.answer = "# Marked in Node.js\n\nRendered by **marked**.";
+    }
+  },
   computed: {
     markDownToHTML() {
       var markdown = this.detail.answer;

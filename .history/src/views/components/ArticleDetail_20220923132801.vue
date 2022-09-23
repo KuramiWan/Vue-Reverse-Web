@@ -55,7 +55,7 @@
         v-model="detail.answer"
         height="400px"
       ></v-md-editor>
-      <div v-html="markDownToHTML"></div>
+      <div :v-html="markDownToHTML(detail.markdown)"></div>
       <div class="button-line">
         <!-- <md-chip
           v-for="tag in detail.tag"
@@ -96,6 +96,12 @@ export default {
   },
 
   methods: {
+    markDownToHTML(answer) {
+      if (answer == null) {
+        answer = "# Marked in Node.js\n\nRendered by **marked**.";
+      }
+      return marked(answer);
+    },
     isAdmin() {
       var userInfo = JSON.parse(localStorage.getItem("userInfo"));
       console.log(userInfo);
@@ -108,10 +114,9 @@ export default {
     isEdit() {
       this.EditKey = !this.EditKey;
     },
-
     uploadMarkdown() {
       notification
-        .post("/admin/detail/update", this.detail, {
+        .post("./admin/detail/update", this.detail, {
           headers: {
             Authorization: localStorage.getItem("Authorization")
           }
@@ -138,15 +143,7 @@ export default {
   },
   components: {},
   mounted() {},
-  computed: {
-    markDownToHTML() {
-      var markdown = this.detail.answer;
-      if (markdown == null) {
-        markdown = "# Marked in Node.js\n\nRendered by **marked**.";
-      }
-      return marked(markdown);
-    }
-  }
+  computed: {}
 };
 </script>
 

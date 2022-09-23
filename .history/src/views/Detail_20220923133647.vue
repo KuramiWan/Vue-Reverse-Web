@@ -131,13 +131,7 @@ export default {
     getDetail() {
       notification
         .get("/detail/" + this.$route.params.id)
-        .then(response => {
-          this.detail = response.data.data;
-          if (!this.detail.answer) {
-            this.detail.answer =
-              "# Marked in Node.js\n\nRendered by **marked**.";
-          }
-        })
+        .then(response => (this.detail = response.data.data))
         .catch(error => {
           console.log(error);
         });

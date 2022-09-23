@@ -47,7 +47,7 @@
 
                   <v-md-editor
                     v-if="EditKey"
-                    v-model="markdown"
+                    v-model="detail.answer"
                     height="400px"
                   ></v-md-editor>
                   <div v-html="markdownToHtml"></div>
@@ -130,6 +130,7 @@ export default {
       .then(response => {
         this.announcementDetail = response.data.data;
         this.markdown = response.data.data.markdown;
+  
       })
       .catch(error => {
         console.log(error);

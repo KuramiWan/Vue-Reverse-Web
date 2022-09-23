@@ -108,10 +108,9 @@ export default {
     isEdit() {
       this.EditKey = !this.EditKey;
     },
-
     uploadMarkdown() {
       notification
-        .post("/admin/detail/update", this.detail, {
+        .post("./admin/detail/update", this.detail, {
           headers: {
             Authorization: localStorage.getItem("Authorization")
           }

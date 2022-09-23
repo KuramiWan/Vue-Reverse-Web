@@ -47,7 +47,7 @@
 
                   <v-md-editor
                     v-if="EditKey"
-                    v-model="markdown"
+                    v-model="announcementDetail.markdown"
                     height="400px"
                   ></v-md-editor>
                   <div v-html="markdownToHtml"></div>

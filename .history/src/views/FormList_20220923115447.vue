@@ -97,7 +97,7 @@
                 md-auto-select
                 md-selectable="multiple"
               >
-                <md-table-cell class="tableHide"
+                <md-table-cell
                   v-for="(value, key) in item"
                   :key="key"
                   :md-label="keyMap(key)"
